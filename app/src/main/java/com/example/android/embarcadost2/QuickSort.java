@@ -1,17 +1,19 @@
 package com.example.android.embarcadost2;
 
+import java.util.ArrayList;
+
 public class QuickSort {
 
-    private int array[];
+    private ArrayList<Integer> array;
     private int length;
 
-    public void sort(int[] inputArr) {
+    public void sort(ArrayList<Integer> inputArr) {
 
-        if (inputArr == null || inputArr.length == 0) {
+        if (inputArr == null || inputArr.size() == 0) {
             return;
         }
         this.array = inputArr;
-        length = inputArr.length;
+        length = inputArr.size();
         quickSort(0, length - 1);
     }
 
@@ -20,7 +22,7 @@ public class QuickSort {
         int i = lowerIndex;
         int j = higherIndex;
         // calculate pivot number, I am taking pivot as middle index number
-        int pivot = array[lowerIndex+(higherIndex-lowerIndex)/2];
+        int pivot = array.get(lowerIndex+(higherIndex-lowerIndex)/2);
         // Divide into two arrays
         while (i <= j) {
             /**
@@ -29,10 +31,10 @@ public class QuickSort {
              * from right side which is less then the pivot value. Once the search
              * is done, then we exchange both numbers.
              */
-            while (array[i] < pivot) {
+            while (array.get(i) < pivot) {
                 i++;
             }
-            while (array[j] > pivot) {
+            while (array.get(j) > pivot) {
                 j--;
             }
             if (i <= j) {
@@ -50,9 +52,9 @@ public class QuickSort {
     }
 
     private void exchangeNumbers(int i, int j) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+        int temp = array.get(i);
+        array.set(i, array.get(j));
+        array.set(j, temp);
     }
 
 

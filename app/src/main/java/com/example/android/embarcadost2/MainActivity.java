@@ -4,36 +4,77 @@ import android.os.Debug;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    ArrayList<Integer> arrayToSelection = new ArrayList<>();
+    ArrayList<Integer> arrayToQuick = new ArrayList<>();
+    Integer NUM_ITENS;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SelectionSort selectionSort = new SelectionSort();
+        final EditText numItensEditText = findViewById(R.id.etNumItens);
 
-        ArrayList<Integer> arr1 = new ArrayList<>(Arrays.asList(34, 2, 56, 7, 67, 88, 42));
-        Debug.startMethodTracing("SelectionSort");
-        ArrayList<Integer> arr2 = selectionSort.selectionSort(arr1);
-        Debug.stopMethodTracing();
-        for (int i = 0; i < arr2.size(); i++) {
-            Log.d("SELECTION", arr2.get(i).toString());
-        }
+        Button sortButton = findViewById(R.id.btSort);
 
-        QuickSort sorter = new QuickSort();
-        int[] input = {24, 2, 45, 20, 56, 75, 2, 56, 99, 53, 12};
-        Debug.startMethodTracing("QuickSort");
-        sorter.sort(input);
-        Debug.stopMethodTracing();
-        for (int i : input) {
-            Log.d("QUICKSORT", Integer.toString(i));
-        }
+        sortButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (numItensEditText.getText().toString().trim().length() > 0) {
+
+                    NUM_ITENS = Integer.parseInt(numItensEditText.getText().toString());
+                    Toast.makeText(MainActivity.this, String.valueOf(NUM_ITENS), Toast.LENGTH_SHORT).show();
+
+                    Random random = new Random();
+                    Log.d("BEFORE Generated : ", NUM_ITENS.toString());
+
+                    for (int i=0; i<NUM_ITENS; i++) {
+                        int randomInt = random.nextInt(100000);
+                        Log.d("Generated : ", Integer.toString(randomInt));
+                        arrayToQuick.add(randomInt);
+                        arrayToSelection.add(randomInt);
+                    }
+
+                    SelectionSort selectionSort = new SelectionSort();
+                    Debug.startMethodTracing("SelectionSort");
+                    ArrayList<Integer> arraySelection = selectionSort.selectionSort(arrayToSelection);
+                    Debug.stopMethodTracing();
+
+                    for (int i = 0; i < arraySelection.size(); i++) {
+                        Log.d("SELECTION", arraySelection.get(i).toString());
+                    }
+
+                    QuickSort sorter = new QuickSort();
+
+                    Debug.startMethodTracing("QuickSort");
+                    sorter.sort(arrayToQuick);
+
+                    Debug.stopMethodTracing();
+
+                    for (int i = 0; i < arrayToQuick.size(); i++) {
+                        Log.d("QUICKSORT", Integer.toString(arrayToQuick.get(i)));
+                    }
+                }
+            }
+        });
+
+
+
+
+
+
     }
-
-
 }
