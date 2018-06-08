@@ -15,9 +15,9 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Integer> arrayToSelection = new ArrayList<>();
-    ArrayList<Integer> arrayToQuick = new ArrayList<>();
+
     Integer NUM_ITENS;
+    Integer NUM_ITERATIONS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final EditText numItensEditText = findViewById(R.id.etNumItens);
+        final EditText numIterationsEditText = findViewById(R.id.etNumIterations);
 
         Button sortButton = findViewById(R.id.btSort);
 
@@ -33,43 +34,54 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (numItensEditText.getText().toString().trim().length() > 0) {
+                if (numItensEditText.getText().toString().trim().length() > 0 && numIterationsEditText.getText().toString().trim().length() > 0) {
 
                     NUM_ITENS = Integer.parseInt(numItensEditText.getText().toString());
-                    Toast.makeText(MainActivity.this, String.valueOf(NUM_ITENS), Toast.LENGTH_SHORT).show();
+                    NUM_ITERATIONS = Integer.parseInt(numIterationsEditText.getText().toString());
 
                     Random random = new Random();
-                    Log.d("BEFORE Generated : ", NUM_ITENS.toString());
 
-                    for (int i=0; i<NUM_ITENS; i++) {
-                        int randomInt = random.nextInt(100000);
-                        Log.d("Generated : ", Integer.toString(randomInt));
-                        arrayToQuick.add(randomInt);
-                        arrayToSelection.add(randomInt);
+
+                    ArrayList<Integer> arrayOfNumber = new ArrayList<>();
+
+                    for (int i = 0; i < NUM_ITENS * NUM_ITERATIONS; i++) {
+                        int randomInt = random.nextInt(1000);
+                        arrayOfNumber.add(randomInt);
                     }
 
-                    SelectionSort selectionSort = new SelectionSort();
-                    Debug.startMethodTracing("SelectionSort");
-                    ArrayList<Integer> arraySelection = selectionSort.selectionSort(arrayToSelection);
+
+
+                    Debug.startMethodTracing("SelectionSort_" + NUM_ITENS + "_" + NUM_ITERATIONS);
+                    for (int i = 0; i < NUM_ITERATIONS; i++) {
+                        ArrayList<Integer> arraySelection = new ArrayList<>(arrayOfNumber.subList(i, i + NUM_ITENS));
+                        SelectionSort selectionSort = new SelectionSort();
+                        selectionSort.selectionSort(arraySelection);
+
+                    }
                     Debug.stopMethodTracing();
 
-                    for (int i = 0; i < arraySelection.size(); i++) {
-                        Log.d("SELECTION", arraySelection.get(i).toString());
+                    Toast.makeText(MainActivity.this, "TERMINOU_Selection", Toast.LENGTH_SHORT).show();
+
+                    Debug.startMethodTracing("QuickSort_" + NUM_ITENS + "_" + NUM_ITERATIONS);
+                    for (int i = 0; i < NUM_ITERATIONS; i++) {
+                        ArrayList<Integer> arrayQuick = new ArrayList<>(arrayOfNumber.subList(i, i + NUM_ITENS));
+                        QuickSort sorter = new QuickSort();
+                        sorter.sort(arrayQuick);
                     }
-
-                    QuickSort sorter = new QuickSort();
-
-                    Debug.startMethodTracing("QuickSort");
-                    sorter.sort(arrayToQuick);
-
                     Debug.stopMethodTracing();
 
-                    for (int i = 0; i < arrayToQuick.size(); i++) {
-                        Log.d("QUICKSORT", Integer.toString(arrayToQuick.get(i)));
-                    }
+                    Toast.makeText(MainActivity.this, "TERMINOU_Quick", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
+
+    }
+
+    public void sortItens(int iteration) {
+
+
+
 
 
 
@@ -77,4 +89,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 }

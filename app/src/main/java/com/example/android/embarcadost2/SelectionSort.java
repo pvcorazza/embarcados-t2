@@ -1,5 +1,7 @@
 package com.example.android.embarcadost2;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class SelectionSort {
@@ -20,6 +22,11 @@ public class SelectionSort {
             int smallerNumber = array.get(index);
             array.set(index, array.get(i));
             array.set(i, smallerNumber);
+        }
+
+        for (int i =0; i<array.size(); i++) {
+            Log.d("SELECTION " + i, array.get(i).toString());
+
         }
         return array;
     }
