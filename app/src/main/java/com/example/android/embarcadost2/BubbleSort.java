@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class BubbleSort {
 
-    public ArrayList<Integer> selectionSort(ArrayList<Integer> arr) {
+    public ArrayList<Integer> bubbleSort(ArrayList<Integer> arr) {
 
         ArrayList<Integer> array = arr;
         int temp;
