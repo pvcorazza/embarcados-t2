@@ -24,10 +24,6 @@ public class SelectionSort {
             array.set(i, smallerNumber);
         }
 
-        for (int i =0; i<array.size(); i++) {
-            Log.d("SELECTION " + i, array.get(i).toString());
-
-        }
         return array;
     }
 }

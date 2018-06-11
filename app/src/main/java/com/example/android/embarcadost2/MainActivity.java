@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
                     Random random = new Random();
 
-
                     ArrayList<Integer> arrayOfNumber = new ArrayList<>();
 
                     for (int i = 0; i < NUM_ITENS * NUM_ITERATIONS; i++) {
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Debug.stopMethodTracing();
 
-                    Toast.makeText(MainActivity.this, "TERMINOU_Selection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Log saved: SelectionSort_" + NUM_ITENS + "_" + NUM_ITERATIONS, Toast.LENGTH_SHORT).show();
 
                     Debug.startMethodTracing("QuickSort_" + NUM_ITENS + "_" + NUM_ITERATIONS);
                     for (int i = 0; i < NUM_ITERATIONS; i++) {
@@ -70,24 +69,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                     Debug.stopMethodTracing();
 
-                    Toast.makeText(MainActivity.this, "TERMINOU_Quick", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Log saved: QuickSort_" + NUM_ITENS + "_" + NUM_ITERATIONS, Toast.LENGTH_SHORT).show();
 
                 }
             }
         });
 
     }
-
-    public void sortItens(int iteration) {
-
-
-
-
-
-
-
-
-
-    }
-
 }

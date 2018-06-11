@@ -1,7 +1,5 @@
 package com.example.android.embarcadost2;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public class QuickSort {
@@ -17,10 +15,6 @@ public class QuickSort {
         this.array = inputArr;
         length = inputArr.size();
         quickSort(0, length - 1);
-        for (int i =0; i<array.size(); i++) {
-            Log.d("QUICK " + i, array.get(i).toString());
-
-        }
     }
 
     private void quickSort(int lowerIndex, int higherIndex) {
